@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="newTopicStyles.css">
+  <title>Nowy Wątek</title>
+</head>
+<body>
+
+<h2>Utwórz Nowy Wątek</h2>
+
+<form method="POST" th:action="@{/new}">
+  <label for="title">Tytuł:</label>
+  <input type="text" id="title" name="title" required><br>
+
+  <label for="content">Treść:</label>
+  <textarea id="content" name="content" rows="4" required></textarea><br>
+
+  <input type="submit" value="Utwórz Wątek">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesLogin.css">
+  <title>Logowanie i Rejestracja</title>
+</head>
+<body>
+
+<!-- Formularz Logowania -->
+<form method="POST" th:action="@{/login}">
+  <h2>Logowanie</h2>
+  <label for="username">Nazwa użytkownika:</label>
+  <input type="text" id="username" name="username" required>
+
+  <label for="password">Hasło:</label>
+  <input type="password" id="password" name="password" required>
+
+  <button type="submit">Zaloguj się</button>
+</form>
+
+</body>
+</html>
