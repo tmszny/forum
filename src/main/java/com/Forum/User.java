@@ -1,5 +1,6 @@
 package com.Forum;
 
+import com.Forum.security.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -27,6 +29,18 @@ public class User implements UserDetails {
     private final String email;
     private final String password;
 
+    private boolean isAccountNonLocked = true;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+
+    // TODO dostosować do nowych użytkoników
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
@@ -44,7 +58,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.isAccountNonLocked;
     }
 
     @Override
@@ -57,9 +71,25 @@ public class User implements UserDetails {
         return true;
     }
 
+    public User(String username, String password, Collection<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.email = "mail@mail.com"; //TODO zmiana na pobierany z formularza
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.email = "mail@mail.com";
+        this.roles = roles;
+        this.email = "mail@mail.com"; //TODO zmiana na pobierany z formularza
+    }
+
+    //TODO nadawanie uprawnień admina
+    public void admin() {
+    }
+
+    public void blockAccount() {
+        this.isAccountNonLocked = false;
     }
 }

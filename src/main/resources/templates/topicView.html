@@ -1,57 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/topicViewStyles.css}">
     <title>Topic Details</title>
 </head>
 <body>
+
+<header id="navbar">
+    <h1>Forum Internetowe</h1>
+    <nav sec:authorize="!isAuthenticated()">
+        <ul>
+            <li><a href="/">Strona główna</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="/login">Zaloguj się</a></li>
+            <li><a href="/registration">Zarejestruj się</a></li>
+            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <label for="searchValue">Szukaj:</label>
+                <input type="text" id="searchValue" name="searchValue">
+                <input type="submit" value="Szukaj">
+            </form>
+            </li>
+        </ul>
+    </nav>
+    <nav sec:authorize="isAuthenticated()">
+        <ul>
+            <li><a href="/">Strona główna</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="/new">Nowy post</a></li>
+            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <label for="searchValue">Szukaj:</label>
+                <input type="text" id="searchValue" name="searchValue">
+                <input type="submit" value="Szukaj">
+            </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+
 <h2>Topic Details</h2>
 <div id="topic">
-<label for="title">Title:</label>
-<input type="text" id="title" name="title" th:value="${topicById.title}" readonly>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" th:value="${topicById.title}" readonly>
 
-<label for="user">User:</label>
-<input type="text" id="user" name="user" th:value="${topicById.user.username}" readonly>
+    <label for="user">User:</label>
+    <input type="text" id="user" name="user" th:value="${topicById.user}" readonly>
 
-<label for="createdAt">Created At:</label>
-<input type="text" id="createdAt" name="createdAt" th:value="${topicById.createdAt}" readonly>
+    <label for="createdAt">Created At:</label>
+    <input type="text" id="createdAt" name="createdAt" th:value="${topicById.createdAt}" readonly>
 
-<label for="lastUpdate">Last Update:</label>
-<input type="text" id="lastUpdate" name="lastUpdate" th:value="${topicById.lastUpdate}" readonly>
+    <label for="lastUpdate">Last Update:</label>
+    <input type="text" id="lastUpdate" name="lastUpdate" th:value="${topicById.lastUpdate}" readonly>
+
+    <form sec:authorize="hasRole('ADMIN')" method="POST" th:action="@{/topicView/close/{id}(id=${topicById.id})}" style="display: inline-block;">
+        <label for="content">Zamknij temat:</label>
+        <input type="submit" value="Zamknij">
+    </form>
 </div>
 
 <div id="discussion">
-<label for="content">Content:</label>
-<textarea
-        type="text" for="content" id="content" name="content" th:text="${topicById.content}" readonly>
-</textarea>
+    <label for="content">Content:</label>
+    <textarea type="text" for="content" id="content" name="content" th:text="${topicById.content}" readonly></textarea>
 
     <label for="postsInTopic">Odpowiedzi:</label>
     <div id="thread" th:each="post : ${postsInTopic}">
-    <ul>
-        <li>
-            <div id="topic">
-            <label for="user">Użytkowink:</label>
-            <input type="text" id="userPost" name="user" th:value ="${post.user.username}" readonly>
-            <label for="user">Czas zamieszczenia:</label>
-            <input type="text" id="createdAtPost" name="createdAtPost" th:value ="${post.createdAt}" readonly>
-            </div>
-            <label id="answear" for="user">Odpowiedź:</label>
-            <textarea
-                type="text" id="contentPost" name="contentPost" th:text ="${post.content}" readonly>
-            </textarea>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <div id="topic">
+                    <label for="user">Użytkownik:</label>
+                    <input type="text" id="userPost" name="user" th:value="${post.user}" readonly>
+                    <label for="createdAtPost">Czas zamieszczenia:</label>
+                    <input type="text" id="createdAtPost" name="createdAtPost" th:value="${post.createdAt}" readonly>
+                    <form sec:authorize="hasRole('ADMIN')" method="POST" th:action="@{'/topicView/close/' + ${topicById.id} + '/' + ${post.id}}" style="display: inline-block;">
+                        <label for="content">Usuń post:</label>
+                        <input type="submit" value="Usuń">
+                    </form>
+                </div>
+                <label id="answear" for="contentPost">Odpowiedź:</label>
+                <textarea type="text" id="contentPost" name="contentPost" th:text="${post.content}" readonly></textarea>
+            </li>
+        </ul>
     </div>
+</div>
 
-</div>
-<div id="respond">
-    <form method="POST" th:action="@{/topicView/{id}(id=${topicById.id})}" th:object="${post}">
-    <label for="content">Dodaj nową odpowiedź:</label>
-    <input type="text" id="newContentPost" name="content" th:field="${post.content}">
-    <input type="submit" value="Odpowiedz">
-    </form>
-</div>
+<span th:if="${topicById.open}">
+    <div id="respond">
+        <form method="POST" th:action="@{/topicView/{id}(id=${topicById.id})}" th:object="${post}">
+            <label for="content">Dodaj nową odpowiedź:</label>
+            <input type="text" id="newContentPost" name="content" th:field="${post.content}">
+            <input type="submit" value="Odpowiedz">
+        </form>
+    </div>
+</span>
+
+<span th:unless="${topicById.open}">
+    <div id="closed">
+        <label for="closedTopic">Status:</label>
+                <textarea type="text" id="closedTopic" name="closedTopic" th:readonly="readonly">Temat zamknięty przez administratora.</textarea>
+
+    </div>
+</span>
+
+
+
 </body>
 </html>

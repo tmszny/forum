@@ -15,10 +15,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "userPost")
-    private User user;
+    private String user;
     private Long topicId;
     private Date createdAt;
     private String content;
+    private boolean deletedByAdmin =  false;
 
     @PrePersist
     void createdAt() {
@@ -31,6 +32,16 @@ public class Post {
         this.createdAt = postDTO.getCreatedAt();
     }
 
+    public void deletePost() {
+        this.deletedByAdmin = true;
+    }
+
+    public String getContent() {
+        if (this.deletedByAdmin) {
+            return "Post usunięty przez administratora";
+        }
+        return this.content;
+    }
 
 
 }

@@ -1,7 +1,41 @@
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* Stylizacja nawigacji */
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+}
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 20px;
+    margin: 0px;
 }
 
 h2 {
@@ -13,7 +47,6 @@ label {
     margin-top: 10px;
     font-weight: bold;
 }
-
 
 textarea {
     width: 100%;
@@ -27,17 +60,19 @@ textarea {
     resize: none;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
+#thread {
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-li {
-    background-color: #fff;
-    margin-bottom: 8px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    li {
+        background-color: #fff;
+        margin-bottom: 8px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
 }
 
 input[readonly],
@@ -47,5 +82,10 @@ textarea[readonly] {
 }
 
 #topic {
+    padding-bottom: 20px;
+}
+
+#closed {
+    margin: 20px, 20px, 20px,20px;
     padding-bottom: 20px;
 }

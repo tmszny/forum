@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 public class PostDTO {
-    private User user;
+    private String user;
     private Date createdAt;
     private String content;
 

@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/login")
-                                .successForwardUrl("/ok"));
+                                .successForwardUrl("/"));
 
         return http.build();
     }

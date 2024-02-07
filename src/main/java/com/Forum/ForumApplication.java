@@ -19,7 +19,14 @@ public class ForumApplication {
 		return new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
-				userRepo.save(new User("user", encoder.encode("password")));
+				/*
+				User user = new User("user" , encoder.encode("password"));
+				User admin = new User("admin", encoder.encode("password"));
+				admin.admin();
+				userRepo.save(user);
+				userRepo.save(admin);
+
+				 */
 			}
 		};
 	}

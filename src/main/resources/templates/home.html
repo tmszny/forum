@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,26 +13,81 @@
 
 <header>
     <h1>Forum Internetowe</h1>
-    <nav>
+    <nav sec:authorize="!isAuthenticated()">
         <ul>
             <li><a href="/">Strona główna</a></li>
             <li><a href="#">Forum</a></li>
             <li><a href="/login">Zaloguj się</a></li>
             <li><a href="/registration">Zarejestruj się</a></li>
+            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <label for="searchValue">Szukaj:</label>
+                <input type="text" id="searchValue" name="searchValue">
+                <input type="submit" value="Szukaj">
+            </form>
+            </li>
+        </ul>
+    </nav>
+    <nav sec:authorize="isAuthenticated()">
+        <ul>
+            <li><a href="/">Strona główna</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="/new">Nowy post</a></li>
+            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <label for="searchValue">Szukaj:</label>
+                <input type="text" id="searchValue" name="searchValue">
+                <input type="submit" value="Szukaj">
+            </form>
+            </li>
         </ul>
     </nav>
 </header>
 
 <section class="main-content">
-    <article>
-        <h2>Ostatnie dyskusje</h2>
-        <!-- Tutaj można umieścić listę ostatnich wątków -->
-    </article>
+    <div class="content">
+        <h2>Nowe tematy</h2>
+        <div th:each="recentTopic : ${recentTopics}">
+            <ul>
+                <li>
+                    <a th:href="@{/topicView/{id}(id=${recentTopic.id})}">
+                    <div>
+                        <label for="userTopic">Użytkowink:</label>
+                        <input type="text" id="userTopic" name="user" th:value ="${recentTopic.user}" readonly>
+                        <label for="createdAtPostTopic">Czas zamieszczenia:</label>
+                        <input type="text" id="createdAtPostTopic" name="createdAtPost" th:value ="${recentTopic.createdAt}" readonly>
+                        <br>
+                        <div class="text">
+                        <label for="topicTopic">Temat:</label>
+                        <input type="text" id="topicTopic" name="user" th:value ="${recentTopic.title}" readonly>
+                        </div>
+                    </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-    <aside>
-        <h2>Reklamy</h2>
-        <!-- Tutaj można umieścić reklamy boczne -->
-    </aside>
+    <div class="content">
+        <h2>Ostatnie dyskusje</h2>
+        <div th:each="recentPost : ${recentPosts}">
+            <ul>
+                <li>
+                    <a th:href="@{/topicView/{id}(id=${recentPost.id})}">
+                        <div>
+                            <label for="userPost">Użytkowink:</label>
+                            <input type="text" id="userPost" name="user" th:value ="${recentPost.user}" readonly>
+                            <label for="createdAtPostPost">Czas zamieszczenia:</label>
+                            <input type="text" id="createdAtPostPost" name="createdAtPost" th:value ="${recentPost.createdAt}" readonly>
+                            <br>
+                            <div class="text">
+                            <label for="topicPost">Temat:</label>
+                            <input type="text" id="topicPost" name="user" th:value ="${recentPost.title}" readonly>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </section>
 
 <footer>

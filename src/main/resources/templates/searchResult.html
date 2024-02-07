@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<header id="navbar">
+    <h1>Forum Internetowe</h1>
+    <nav sec:authorize="!isAuthenticated()">
+        <ul>
+            <li><a href="/">Strona główna</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="/login">Zaloguj się</a></li>
+            <li><a href="/registration">Zarejestruj się</a></li>
+            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <label for="searchValue">Szukaj:</label>
+                <input type="text" id="searchValue" name="searchValue">
+                <input type="submit" value="Szukaj">
+            </form>
+            </li>
+        </ul>
+    </nav>
+    <nav sec:authorize="isAuthenticated()">
+        <ul>
+            <li><a href="/">Strona główna</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="/new">Nowy post</a></li>
+            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <label for="searchValue">Szukaj:</label>
+                <input type="text" id="searchValue" name="searchValue">
+                <input type="submit" value="Szukaj">
+            </form>
+            </li>
+        </ul>
+    </nav>
+</header>
+<body>
+
+<div class="content">
+    <h2>Wyniki wyszukiwania</h2>
+    <div th:each="recentTopic : ${searchedTopics}">
+        <ul>
+            <li>
+                <a th:href="@{/topicView/{id}(id=${recentTopic.value.id})}">
+                    <div>
+                        <label for="userTopic">Użytkowink:</label>
+                        <input type="text" id="userTopic" name="user" th:value ="${recentTopic.value.user.username}" readonly>
+                        <label for="createdAtPostTopic">Czas zamieszczenia:</label>
+                        <input type="text" id="createdAtPostTopic" name="createdAtPost" th:value ="${recentTopic.value.createdAt}" readonly>
+                        <br>
+                        <div class="text">
+                            <label for="topicTopic">Temat:</label>
+                            <input type="text" id="topicTopic" name="user" th:value ="${recentTopic.value.title}" readonly>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

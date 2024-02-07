@@ -18,18 +18,24 @@ public class Topic {
     private Long id;
     private String title;
     @Column(name = "userTopic")
-    private User user;
+    private String user;
     private Date createdAt;
     private Date lastUpdate;
     private String content;
+    private boolean open;
 
     @PrePersist
     void atCreationt() {
         this.createdAt = new Date();
+        this.open = true;
     }
 
     public void addPost(Post post) {
         post.setTopicId(this.id);
         this.lastUpdate = new Date();
+    }
+
+    public void closeTopic() {
+        this.open = false;
     }
 }
