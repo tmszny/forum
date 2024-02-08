@@ -14,12 +14,14 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "userPost")
     private String user;
+
     private Long topicId;
     private Date createdAt;
     private String content;
-    private boolean deletedByAdmin =  false;
+    private boolean deletedByAdmin = false;
 
     @PrePersist
     void createdAt() {
@@ -42,6 +44,4 @@ public class Post {
         }
         return this.content;
     }
-
-
 }

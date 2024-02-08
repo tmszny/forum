@@ -68,7 +68,7 @@ h2 {
 }
 
 #newPost textarea {
-  resize: vertical; /* Umożliwia zmianę tylko wysokości textarea */
+  resize: vertical;
 }
 
 #newPost input[type="submit"] {

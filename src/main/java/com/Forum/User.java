@@ -40,7 +40,7 @@ public class User implements UserDetails {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    // TODO dostosować do nowych użytkoników
+    // TODO adapt for new users
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
@@ -75,17 +75,17 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.roles = roles;
-        this.email = "mail@mail.com"; //TODO zmiana na pobierany z formularza
+        this.email = "mail@mail.com"; // TODO change to be retrieved from the form
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.roles = roles;
-        this.email = "mail@mail.com"; //TODO zmiana na pobierany z formularza
+        this.email = "mail@mail.com"; // TODO change to be retrieved from the form
     }
 
-    //TODO nadawanie uprawnień admina
+    // TODO assign admin permissions
     public void admin() {
     }
 

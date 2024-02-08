@@ -7,19 +7,16 @@ import com.Forum.data.PostDTO;
 import com.Forum.data.PostRepository;
 import com.Forum.data.TopicRepository;
 import com.Forum.data.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -34,10 +31,14 @@ public class TopicController {
     private UserRepository userRepo;
 
     @ModelAttribute("topic")
-    public Topic topic() {return new Topic();}
+    public Topic topic() {
+        return new Topic();
+    }
 
     @ModelAttribute("post")
-    public PostDTO post() {return new PostDTO();}
+    public PostDTO post() {
+        return new PostDTO();
+    }
 
     @Autowired
     public TopicController(TopicRepository topicRepo, PostRepository postRepo, UserRepository userRepo) {
@@ -63,12 +64,12 @@ public class TopicController {
     public String showTopic(@PathVariable("id") Long id, Model model) {
         Optional<Topic> optTopic = topicRepo.findById(id);
         if (optTopic.isPresent()) {
-            Topic actuallTopic = optTopic.get();
+            Topic actualTopic = optTopic.get();
             ArrayList<Post> postsInTopic = postRepo.findAllPostsByTopicId(id);
-            model.addAttribute("topicById", actuallTopic);
+            model.addAttribute("topicById", actualTopic);
             model.addAttribute("postsInTopic", postsInTopic);
 
-            if (actuallTopic.isOpen()) {
+            if (actualTopic.isOpen()) {
                 model.addAttribute("post", post());
             }
             return "topicView";
@@ -81,11 +82,11 @@ public class TopicController {
         Optional<Topic> optTopic = topicRepo.findById(id);
 
         if (optTopic.isPresent()) {
-            Topic actuallTopic = optTopic.get();
+            Topic actualTopic = optTopic.get();
             Post newPost = new Post(post);
             String currentPrincipalName = httpServletRequest.getUserPrincipal().getName();
             newPost.setUser(currentPrincipalName);
-            actuallTopic.addPost(newPost);
+            actualTopic.addPost(newPost);
             postRepo.save(newPost);
             return "redirect:/topicView/" + id;
         }

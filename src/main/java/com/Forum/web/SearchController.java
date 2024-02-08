@@ -22,7 +22,7 @@ public class SearchController {
 
     public SearchController(TopicRepository topicRepo, PostRepository postRepo) {
         this.postRepo = postRepo;
-        this.topicRepo =topicRepo;
+        this.topicRepo = topicRepo;
     }
 
     @PostMapping("/search")
@@ -36,9 +36,9 @@ public class SearchController {
                 resultMap.put(topic.getId(), topic));
 
         postRepo.searchPost(searchedPhrase).forEach(post -> {
-                Topic postOwner = topicRepo.findById(post.getTopicId()).get();
-                resultMap.put(postOwner.getId(), postOwner);
-                });
+            Topic postOwner = topicRepo.findById(post.getTopicId()).get();
+            resultMap.put(postOwner.getId(), postOwner);
+        });
 
         model.addAttribute("searchedTopics", resultMap);
 

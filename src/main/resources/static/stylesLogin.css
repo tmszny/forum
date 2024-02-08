@@ -1,18 +1,18 @@
-/* Resetowanie stylów domyślnych */
+/* Reset default styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Globalne style */
+/* Global styles */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
   color: #333;
 }
 
-/* Stylizacja nagłówka */
+/* Header styling */
 header {
   background-color: #333;
   color: #fff;
@@ -24,7 +24,7 @@ header h1 {
   margin: 0;
 }
 
-/* Stylizacja nawigacji */
+/* Navigation styling */
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -41,7 +41,7 @@ nav a {
   color: #fff;
 }
 
-/* Stylizacja formularza rejestracyjnego */
+/* Registration form styling */
 #registrationForm {
   max-width: 400px;
   margin: 20px auto;

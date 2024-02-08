@@ -5,18 +5,11 @@ header {
   text-align: center;
 }
 
-header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
-
 header h1 {
   margin: 0;
 }
 
-/* Stylizacja nawigacji */
+/* Stylization for navigation */
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -32,60 +25,59 @@ nav a {
   text-decoration: none;
   color: #fff;
 }
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0px;
 }
 
 h2 {
-    color: #333;
+  color: #333;
 }
 
 label {
-    display: auto;
-    margin-top: 10px;
-    font-weight: bold;
+  display: auto;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 4px;
-    margin-bottom: 12px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    resize: none;
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
 }
 
-#thread {
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
+#thread ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-    li {
-        background-color: #fff;
-        margin-bottom: 8px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
+#thread li {
+  background-color: #fff;
+  margin-bottom: 8px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 input[readonly],
 textarea[readonly] {
-    background-color: #ddd;
-    cursor: not-allowed;
+  background-color: #ddd;
+  cursor: not-allowed;
 }
 
 #topic {
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 #closed {
-    margin: 20px, 20px, 20px,20px;
-    padding-bottom: 20px;
+  margin: 20px;
+  padding-bottom: 20px;
 }

@@ -2,11 +2,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/topicViewStyles.css}">
     <title>Topic Details</title>
 </head>
+
 <body>
 
 <header id="navbar">
@@ -17,11 +19,12 @@
             <li><a href="#">Forum</a></li>
             <li><a href="/login">Zaloguj się</a></li>
             <li><a href="/registration">Zarejestruj się</a></li>
-            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                <label for="searchValue">Szukaj:</label>
-                <input type="text" id="searchValue" name="searchValue">
-                <input type="submit" value="Szukaj">
-            </form>
+            <li>
+                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                    <label for="searchValue">Szukaj:</label>
+                    <input type="text" id="searchValue" name="searchValue">
+                    <input type="submit" value="Szukaj">
+                </form>
             </li>
         </ul>
     </nav>
@@ -30,11 +33,12 @@
             <li><a href="/">Strona główna</a></li>
             <li><a href="#">Forum</a></li>
             <li><a href="/new">Nowy post</a></li>
-            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                <label for="searchValue">Szukaj:</label>
-                <input type="text" id="searchValue" name="searchValue">
-                <input type="submit" value="Szukaj">
-            </form>
+            <li>
+                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                    <label for="searchValue">Szukaj:</label>
+                    <input type="text" id="searchValue" name="searchValue">
+                    <input type="submit" value="Szukaj">
+                </form>
             </li>
         </ul>
     </nav>
@@ -98,12 +102,9 @@
 <span th:unless="${topicById.open}">
     <div id="closed">
         <label for="closedTopic">Status:</label>
-                <textarea type="text" id="closedTopic" name="closedTopic" th:readonly="readonly">Temat zamknięty przez administratora.</textarea>
-
+        <textarea type="text" id="closedTopic" name="closedTopic" th:readonly="readonly">Temat zamknięty przez administratora.</textarea>
     </div>
 </span>
-
-
 
 </body>
 </html>

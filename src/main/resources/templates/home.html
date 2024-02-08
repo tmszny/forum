@@ -19,11 +19,12 @@
             <li><a href="#">Forum</a></li>
             <li><a href="/login">Zaloguj się</a></li>
             <li><a href="/registration">Zarejestruj się</a></li>
-            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                <label for="searchValue">Szukaj:</label>
-                <input type="text" id="searchValue" name="searchValue">
-                <input type="submit" value="Szukaj">
-            </form>
+            <li>
+                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                    <label for="searchValue">Szukaj:</label>
+                    <input type="text" id="searchValue" name="searchValue">
+                    <input type="submit" value="Szukaj">
+                </form>
             </li>
         </ul>
     </nav>
@@ -32,11 +33,12 @@
             <li><a href="/">Strona główna</a></li>
             <li><a href="#">Forum</a></li>
             <li><a href="/new">Nowy post</a></li>
-            <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                <label for="searchValue">Szukaj:</label>
-                <input type="text" id="searchValue" name="searchValue">
-                <input type="submit" value="Szukaj">
-            </form>
+            <li>
+                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
+                    <label for="searchValue">Szukaj:</label>
+                    <input type="text" id="searchValue" name="searchValue">
+                    <input type="submit" value="Szukaj">
+                </form>
             </li>
         </ul>
     </nav>
@@ -49,17 +51,17 @@
             <ul>
                 <li>
                     <a th:href="@{/topicView/{id}(id=${recentTopic.id})}">
-                    <div>
-                        <label for="userTopic">Użytkowink:</label>
-                        <input type="text" id="userTopic" name="user" th:value ="${recentTopic.user}" readonly>
-                        <label for="createdAtPostTopic">Czas zamieszczenia:</label>
-                        <input type="text" id="createdAtPostTopic" name="createdAtPost" th:value ="${recentTopic.createdAt}" readonly>
-                        <br>
-                        <div class="text">
-                        <label for="topicTopic">Temat:</label>
-                        <input type="text" id="topicTopic" name="user" th:value ="${recentTopic.title}" readonly>
+                        <div>
+                            <label for="userTopic">Użytkownik:</label>
+                            <input type="text" id="userTopic" name="user" th:value="${recentTopic.user}" readonly>
+                            <label for="createdAtPostTopic">Czas zamieszczenia:</label>
+                            <input type="text" id="createdAtPostTopic" name="createdAtPost" th:value="${recentTopic.createdAt}" readonly>
+                            <br>
+                            <div class="text">
+                                <label for="topicTopic">Temat:</label>
+                                <input type="text" id="topicTopic" name="user" th:value="${recentTopic.title}" readonly>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </li>
             </ul>
@@ -73,14 +75,14 @@
                 <li>
                     <a th:href="@{/topicView/{id}(id=${recentPost.id})}">
                         <div>
-                            <label for="userPost">Użytkowink:</label>
-                            <input type="text" id="userPost" name="user" th:value ="${recentPost.user}" readonly>
+                            <label for="userPost">Użytkownik:</label>
+                            <input type="text" id="userPost" name="user" th:value="${recentPost.user}" readonly>
                             <label for="createdAtPostPost">Czas zamieszczenia:</label>
-                            <input type="text" id="createdAtPostPost" name="createdAtPost" th:value ="${recentPost.createdAt}" readonly>
+                            <input type="text" id="createdAtPostPost" name="createdAtPost" th:value="${recentPost.createdAt}" readonly>
                             <br>
                             <div class="text">
-                            <label for="topicPost">Temat:</label>
-                            <input type="text" id="topicPost" name="user" th:value ="${recentPost.title}" readonly>
+                                <label for="topicPost">Temat:</label>
+                                <input type="text" id="topicPost" name="user" th:value="${recentPost.title}" readonly>
                             </div>
                         </div>
                     </a>

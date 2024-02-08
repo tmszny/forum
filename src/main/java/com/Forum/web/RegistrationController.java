@@ -4,6 +4,7 @@ import com.Forum.User;
 import com.Forum.data.RoleRepository;
 import com.Forum.data.UserRepository;
 import com.Forum.security.RegistrationForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
     private RoleRepository roleRepo;
 
+    @Autowired
     public RegistrationController(UserRepository userRepo, PasswordEncoder passwordEncoder, RoleRepository roleRepo) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;

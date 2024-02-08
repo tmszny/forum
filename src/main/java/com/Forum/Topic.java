@@ -17,15 +17,17 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
+
     @Column(name = "userTopic")
     private String user;
+
     private Date createdAt;
     private Date lastUpdate;
     private String content;
     private boolean open;
 
     @PrePersist
-    void atCreationt() {
+    void atCreation() {
         this.createdAt = new Date();
         this.open = true;
     }

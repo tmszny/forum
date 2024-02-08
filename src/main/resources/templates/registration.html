@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,10 +20,11 @@
       <li><a href="/registration">Zarejestruj się</a></li>
       <li class="search-container">
         <form method="POST" th:action="@{/search}" th:object="${searchValue}">
-        <label for="searchValue">Szukaj:</label>
-        <input type="text" id="searchValue" name="searchValue">
-        <input type="submit" value="Szukaj">
-      </form></li>
+          <label for="searchValue">Szukaj:</label>
+          <input type="text" id="searchValue" name="searchValue">
+          <input type="submit" value="Szukaj">
+        </form>
+      </li>
     </ul>
   </nav>
   <nav sec:authorize="isAuthenticated()">
@@ -30,11 +32,12 @@
       <li><a href="/">Strona główna</a></li>
       <li><a href="#">Forum</a></li>
       <li><a href="/new">Nowy post</a></li>
-      <li><form method="POST" th:action="@{/search}" th:object="${searchValue}">
-        <label for="searchValue">Szukaj:</label>
-        <input type="text" id="searchValue" name="searchValue">
-        <input type="submit" value="Szukaj">
-      </form>
+      <li>
+        <form method="POST" th:action="@{/search}" th:object="${searchValue}">
+          <label for="searchValue">Szukaj:</label>
+          <input type="text" id="searchValue" name="searchValue">
+          <input type="submit" value="Szukaj">
+        </form>
       </li>
     </ul>
   </nav>
