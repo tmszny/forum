@@ -23,6 +23,9 @@ public class Topic {
 
     private Date createdAt;
     private Date lastUpdate;
+
+    @Lob
+    @Column(name = "content", columnDefinition="CLOB")
     private String content;
     private boolean open;
 

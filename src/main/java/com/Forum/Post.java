@@ -20,6 +20,8 @@ public class Post {
 
     private Long topicId;
     private Date createdAt;
+    @Lob
+    @Column(name = "content", columnDefinition="CLOB")
     private String content;
     private boolean deletedByAdmin = false;
 
