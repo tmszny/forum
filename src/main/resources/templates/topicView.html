@@ -5,106 +5,166 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/topicViewStyles.css}">
     <title>Topic Details</title>
 </head>
 
 <body>
 
-<header id="navbar">
-    <h1>Forum Internetowe</h1>
-    <nav sec:authorize="!isAuthenticated()">
-        <ul>
-            <li><a href="/">Strona główna</a></li>
-            <li><a href="#">Forum</a></li>
-            <li><a href="/login">Zaloguj się</a></li>
-            <li><a href="/registration">Zarejestruj się</a></li>
-            <li>
-                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                    <label for="searchValue">Szukaj:</label>
-                    <input type="text" id="searchValue" name="searchValue">
-                    <input type="submit" value="Szukaj">
-                </form>
-            </li>
-        </ul>
-    </nav>
-    <nav sec:authorize="isAuthenticated()">
-        <ul>
-            <li><a href="/">Strona główna</a></li>
-            <li><a href="#">Forum</a></li>
-            <li><a href="/new">Nowy post</a></li>
-            <li>
-                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                    <label for="searchValue">Szukaj:</label>
-                    <input type="text" id="searchValue" name="searchValue">
-                    <input type="submit" value="Szukaj">
-                </form>
-            </li>
-        </ul>
-    </nav>
-</header>
+<!-- Non-logged user navbar -->
+<nav sec:authorize="!isAuthenticated()" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">FORUM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Strona główna</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Zaloguj się</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Zarejestruj się</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchValue" name="searchValue">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
 
-<h2>Topic Details</h2>
-<div id="topic">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" th:value="${topicById.title}" readonly>
+<!-- Logged user navbar -->
+<nav sec:authorize="isAuthenticated()" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">FORUM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Strona główna</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new">Nowy post</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchValue" name="searchValue">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
 
-    <label for="user">User:</label>
-    <input type="text" id="user" name="user" th:value="${topicById.user}" readonly>
-
-    <label for="createdAt">Created At:</label>
-    <input type="text" id="createdAt" name="createdAt" th:value="${topicById.createdAt}" readonly>
-
-    <label for="lastUpdate">Last Update:</label>
-    <input type="text" id="lastUpdate" name="lastUpdate" th:value="${topicById.lastUpdate}" readonly>
-
-    <form sec:authorize="hasRole('ADMIN')" method="POST" th:action="@{/topicView/close/{id}(id=${topicById.id})}" style="display: inline-block;">
-        <label for="content">Zamknij temat:</label>
-        <input type="submit" value="Zamknij">
-    </form>
+<div class="container-fluid">
+<div class="row mt-4">
+    <div class="col-xl-12">
+    <h2>Topic Details</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <label for="user" class="form-label">User:</label>
+            <input type="text" id="user" name="user" th:value="${topicById.user}" class="form-control" readonly>
+        </div>
+        <div class="col">
+            <label for="createdAt" class="form-label">Created At:</label>
+            <input type="text" id="createdAt" name="createdAt" th:value="${topicById.createdAt}" class="form-control" readonly>
+        </div>
+        <div class="col">
+            <label for="lastUpdate" class="form-label">Last Update:</label>
+            <input type="text" id="lastUpdate" name="lastUpdate" th:value="${topicById.lastUpdate}" class="form-control" readonly>
+        </div>
+        <div class="col">
+            <form sec:authorize="hasRole('ADMIN')" method="POST" th:action="@{/topicView/close/{id}(id=${topicById.id})}">
+                <label for="content" class="form-label">Zamknij temat:</label>
+                <input type="submit" value="Zamknij" class="btn btn-danger">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" id="title" name="title" th:value="${topicById.title}" class="form-control" readonly>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <label for="content" class="form-label">Content:</label>
+        <textarea type="text" for="content" id="content" name="content" th:text="${topicById.content}" class="form-control" readonly></textarea>
+        </div>
+    </div>
+</div>
 </div>
 
-<div id="discussion">
-    <label for="content">Content:</label>
-    <textarea type="text" for="content" id="content" name="content" th:text="${topicById.content}" readonly></textarea>
+<div class="row mt-4">
+    <div class="col-xl-12">
+        <div class="container">
+    <label for="postsInTopic" class="form-label">Odpowiedzi:</label>
 
-    <label for="postsInTopic">Odpowiedzi:</label>
-    <div id="thread" th:each="post : ${postsInTopic}">
-        <ul>
-            <li>
-                <div id="topic">
-                    <label for="user">Użytkownik:</label>
-                    <input type="text" id="userPost" name="user" th:value="${post.user}" readonly>
-                    <label for="createdAtPost">Czas zamieszczenia:</label>
-                    <input type="text" id="createdAtPost" name="createdAtPost" th:value="${post.createdAt}" readonly>
-                    <form sec:authorize="hasRole('ADMIN')" method="POST" th:action="@{'/topicView/close/' + ${topicById.id} + '/' + ${post.id}}" style="display: inline-block;">
-                        <label for="content">Usuń post:</label>
-                        <input type="submit" value="Usuń">
+    <div class="card mb-3" th:each="post : ${postsInTopic}">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <label for="userPost" class="form-label">Użytkownik:</label>
+                    <input type="text" id="userPost" name="user" th:value="${post.user}" class="form-control" readonly>
+                </div>
+                <div class="col">
+                    <label for="createdAtPost" class="form-label">Czas zamieszczenia:</label>
+                    <input type="text" id="createdAtPost" name="createdAtPost" th:value="${post.createdAt}" class="form-control" readonly>
+                </div>
+                <div class="col">
+                    <form sec:authorize="hasRole('ADMIN')" method="POST" th:action="@{'/topicView/close/' + ${topicById.id} + '/' + ${post.id}}">
+                        <label for="content" class="form-label">Usuń post:</label>
+                        <input type="submit" value="Usuń" class="btn btn-danger">
                     </form>
                 </div>
-                <label id="answear" for="contentPost">Odpowiedź:</label>
-                <textarea type="text" id="contentPost" name="contentPost" th:text="${post.content}" readonly></textarea>
-            </li>
-        </ul>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label id="answear" for="contentPost" class="form-label">Odpowiedź:</label>
+                    <textarea type="text" id="contentPost" name="contentPost" th:text="${post.content}" class="form-control" readonly></textarea>
+                </div>
+            </div>
+        </div>
     </div>
+    </div>
+    </div>
+
 </div>
 
-<span th:if="${topicById.open}">
-    <div id="respond">
-        <form method="POST" th:action="@{/topicView/{id}(id=${topicById.id})}" th:object="${post}">
-            <label for="content">Dodaj nową odpowiedź:</label>
-            <input type="text" id="newContentPost" name="content" th:field="${post.content}">
-            <input type="submit" value="Odpowiedz">
-        </form>
-    </div>
-</span>
+<div class="row mb-10">
+    <div class="col-xl-12">
+        <div class="container">
+    <span th:if="${topicById.open}">
+        <div id="respond" class="mb-3">
+            <form method="POST" th:action="@{/topicView/{id}(id=${topicById.id})}" th:object="${post}">
+                <label for="content" class="form-label">Dodaj nową odpowiedź:</label>
+                <input type="text" id="newContentPost" name="content" th:field="${post.content}" class="form-control">
+                <input type="submit" value="Odpowiedz" class="btn btn-primary mt-4">
+            </form>
+        </div>
+    </span>
 
-<span th:unless="${topicById.open}">
-    <div id="closed">
-        <label for="closedTopic">Status:</label>
-        <textarea type="text" id="closedTopic" name="closedTopic" th:readonly="readonly">Temat zamknięty przez administratora.</textarea>
+    <span th:unless="${topicById.open}">
+        <div id="closed" class="mb-3">
+            <label for="closedTopic" class="form-label">Status:</label>
+            <textarea type="text" id="closedTopic" name="closedTopic" th:readonly="readonly" class="form-control">Temat zamknięty przez administratora.</textarea>
+        </div>
+    </span>
+</div>
     </div>
-</span>
-
+</div>
+</div>
+</div>
+<footer class="navbar d-flex justify-content-center">
+    <p>&copy; 2024 Forum Internetowe. Wszelkie prawa zastrzeżone.</p>
+</footer>
 </body>
 </html>
