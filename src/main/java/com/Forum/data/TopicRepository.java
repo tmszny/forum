@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.ArrayList;
 
 public interface TopicRepository extends CrudRepository<Topic, Long>, PagingAndSortingRepository<Topic,Long> {
-    //nie wiadomo czy działa XD
     @Query("select t from Topic t where t.title like %:#{#content}%")
     ArrayList<Topic> searchTopicsTitle(@Param("content") String content);
 

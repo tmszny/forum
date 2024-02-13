@@ -1,100 +1,127 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <!-- Dodane linki do Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Forum Internetowe</title>
 </head>
 <body>
-
-<header>
-    <h1>Forum Internetowe</h1>
-    <nav sec:authorize="!isAuthenticated()">
-        <ul>
-            <li><a href="/">Strona główna</a></li>
-            <li><a href="#">Forum</a></li>
-            <li><a href="/login">Zaloguj się</a></li>
-            <li><a href="/registration">Zarejestruj się</a></li>
-            <li>
-                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                    <label for="searchValue">Szukaj:</label>
-                    <input type="text" id="searchValue" name="searchValue">
-                    <input type="submit" value="Szukaj">
-                </form>
-            </li>
-        </ul>
-    </nav>
-    <nav sec:authorize="isAuthenticated()">
-        <ul>
-            <li><a href="/">Strona główna</a></li>
-            <li><a href="#">Forum</a></li>
-            <li><a href="/new">Nowy post</a></li>
-            <li>
-                <form method="POST" th:action="@{/search}" th:object="${searchValue}">
-                    <label for="searchValue">Szukaj:</label>
-                    <input type="text" id="searchValue" name="searchValue">
-                    <input type="submit" value="Szukaj">
-                </form>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-<section class="main-content">
-    <div class="content">
-        <h2>Nowe tematy</h2>
-        <div th:each="recentTopic : ${recentTopics}">
-            <ul>
-                <li>
-                    <a th:href="@{/topicView/{id}(id=${recentTopic.id})}">
-                        <div>
-                            <label for="userTopic">Użytkownik:</label>
-                            <input type="text" id="userTopic" name="user" th:value="${recentTopic.user}" readonly>
-                            <label for="createdAtPostTopic">Czas zamieszczenia:</label>
-                            <input type="text" id="createdAtPostTopic" name="createdAtPost" th:value="${recentTopic.createdAt}" readonly>
-                            <br>
-                            <div class="text">
-                                <label for="topicTopic">Temat:</label>
-                                <input type="text" id="topicTopic" name="user" th:value="${recentTopic.title}" readonly>
-                            </div>
-                        </div>
-                    </a>
+<!-- Non logged user navbar -->
+<nav sec:authorize="!isAuthenticated()" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">FORUM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Strona główna</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Zaloguj się</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Zarejestruj się</a>
                 </li>
             </ul>
+            <form class="d-flex" role="search" method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchValue" name="searchValue">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
+</nav>
 
-    <div class="content">
-        <h2>Ostatnie dyskusje</h2>
-        <div th:each="recentPost : ${recentPosts}">
-            <ul>
-                <li>
-                    <a th:href="@{/topicView/{id}(id=${recentPost.id})}">
-                        <div>
-                            <label for="userPost">Użytkownik:</label>
-                            <input type="text" id="userPost" name="user" th:value="${recentPost.user}" readonly>
-                            <label for="createdAtPostPost">Czas zamieszczenia:</label>
-                            <input type="text" id="createdAtPostPost" name="createdAtPost" th:value="${recentPost.createdAt}" readonly>
-                            <br>
-                            <div class="text">
-                                <label for="topicPost">Temat:</label>
-                                <input type="text" id="topicPost" name="user" th:value="${recentPost.title}" readonly>
-                            </div>
-                        </div>
-                    </a>
+<!-- Logged user navbar -->
+<nav sec:authorize="isAuthenticated()" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">FORUM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Strona główna</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new">Nowy post</a>
                 </li>
             </ul>
+            <form class="d-flex" role="search" method="POST" th:action="@{/search}" th:object="${searchValue}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchValue" name="searchValue">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
-</section>
+</nav>
 
-<footer>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <section class="main-content container mt-4">
+                <h2>Nowe tematy</h2>
+                <div th:each="recentTopic : ${recentTopics}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <a th:href="@{/topicView/{id}(id=${recentTopic.id})}" class="text-dark">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="userTopic">Użytkownik:</label>
+                                        <input type="text" id="userTopic" name="user" th:value="${recentTopic.user}" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="createdAtPostTopic">Czas zamieszczenia:</label>
+                                        <input type="text" id="createdAtPostTopic" name="createdAtPost" th:value="${recentTopic.createdAt}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="text">
+                                    <label for="topicTopic">Temat:</label>
+                                    <input type="text" id="topicTopic" name="user" th:value="${recentTopic.title}" class="form-control" readonly>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-xl-6">
+            <section class="main-content container mt-4">
+                <h2>Ostatnie dyskusje</h2>
+                <div th:each="recentPost : ${recentPosts}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <a th:href="@{/topicView/{id}(id=${recentPost.id})}" class="text-dark">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="userPost">Użytkownik:</label>
+                                        <input type="text" id="userPost" name="user" th:value="${recentPost.user}" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="createdAtPostPost">Czas zamieszczenia:</label>
+                                        <input type="text" id="createdAtPostPost" name="createdAtPost" th:value="${recentPost.createdAt}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="text">
+                                    <label for="topicPost">Temat:</label>
+                                    <input type="text" id="topicPost" name="user" th:value="${recentPost.title}" class="form-control" readonly>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<footer class="navbar d-flex justify-content-center">
     <p>&copy; 2024 Forum Internetowe. Wszelkie prawa zastrzeżone.</p>
 </footer>
-
 </body>
 </html>

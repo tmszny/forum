@@ -1,61 +1,86 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="stylesLogin.css">
-  <title>Logowanie i Rejestracja</title>
+  <!-- Dodane linki do Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>Forum Internetowe</title>
 </head>
-
-<header>
-  <h1>Forum Internetowe</h1>
-  <nav sec:authorize="!isAuthenticated()">
-    <ul>
-      <li><a href="/">Strona główna</a></li>
-      <li><a href="#">Forum</a></li>
-      <li><a href="/login">Zaloguj się</a></li>
-      <li><a href="/registration">Zarejestruj się</a></li>
-      <li>
-        <form method="POST" th:action="@{/search}" th:object="${searchValue}">
-          <label for="searchValue">Szukaj:</label>
-          <input type="text" id="searchValue" name="searchValue">
-          <input type="submit" value="Szukaj">
-        </form>
-      </li>
-    </ul>
-  </nav>
-  <nav sec:authorize="isAuthenticated()">
-    <ul>
-      <li><a href="/">Strona główna</a></li>
-      <li><a href="#">Forum</a></li>
-      <li><a href="/new">Nowy post</a></li>
-      <li>
-        <form method="POST" th:action="@{/search}" th:object="${searchValue}">
-          <label for="searchValue">Szukaj:</label>
-          <input type="text" id="searchValue" name="searchValue">
-          <input type="submit" value="Szukaj">
-        </form>
-      </li>
-    </ul>
-  </nav>
-</header>
-
 <body>
+<!-- Non logged user navbar -->
+<nav sec:authorize="!isAuthenticated()" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">FORUM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Strona główna</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Zaloguj się</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/registration">Zarejestruj się</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" method="POST" th:action="@{/search}" th:object="${searchValue}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchValue" name="searchValue">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
 
-<!-- Formularz Logowania -->
-<form id="registrationForm" method="POST" th:action="@{/login}">
-  <h2>Logowanie</h2>
-  <label for="username">Nazwa użytkownika:</label>
-  <input type="text" id="username" name="username" required>
+<!-- Logged user navbar -->
+<nav sec:authorize="isAuthenticated()" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">FORUM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Strona główna</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/new">Nowy post</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" method="POST" th:action="@{/search}" th:object="${searchValue}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchValue" name="searchValue">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
 
-  <label for="password">Hasło:</label>
-  <input type="password" id="password" name="password" required>
+<div class="container">
+  <!-- Formularz Logowania -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form id="registrationForm" method="POST" th:action="@{/login}" class="mt-5">
+        <h2 class="mb-4">Logowanie</h2>
+        <div class="mb-3">
+          <label for="username" class="form-label">Nazwa użytkownika:</label>
+          <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Hasło:</label>
+          <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Zaloguj się</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-  <button type="submit">Zaloguj się</button>
-</form>
-
+<footer class="navbar d-flex justify-content-center">
+  <p>&copy; 2024 Forum Internetowe. Wszelkie prawa zastrzeżone.</p>
+</footer>
 </body>
 </html>
