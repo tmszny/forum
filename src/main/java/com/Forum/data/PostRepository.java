@@ -13,4 +13,6 @@ public interface PostRepository extends CrudRepository<Post, Long> {
 
     @Query("select p from Post p where p.content like %:#{#content}%")
     ArrayList<Post> searchPost(@Param("content") String content);
+
+    ArrayList<Post> findAllPostsByUser(String username);
 }

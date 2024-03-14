@@ -1,5 +1,6 @@
 package com.Forum.data;
 
+import com.Forum.Post;
 import com.Forum.Topic;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.ArrayList;
 
 public interface TopicRepository extends CrudRepository<Topic, Long>, PagingAndSortingRepository<Topic,Long> {
+
+    ArrayList<Topic> findAllTopicsByUser(String username);
     @Query("select t from Topic t where t.title like %:#{#content}%")
     ArrayList<Topic> searchTopicsTitle(@Param("content") String content);
 

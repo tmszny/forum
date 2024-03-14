@@ -89,7 +89,6 @@ public class User implements UserDetails {
     public void admin() {
     }
 
-    public void blockAccount() {
-        this.isAccountNonLocked = false;
+    public void blockAccount() { this.isAccountNonLocked = false;
     }
 }
