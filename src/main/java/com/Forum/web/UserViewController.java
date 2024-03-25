@@ -1,11 +1,9 @@
 package com.Forum.web;
 
-import com.Forum.Topic;
-import com.Forum.TopicService;
-import com.Forum.UserService;
+import com.Forum.data.Topic;
+import com.Forum.services.TopicService;
+import com.Forum.services.UserService;
 import com.Forum.data.UserDTO;
-import com.Forum.data.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

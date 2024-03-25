@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-          crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Dodane linki do Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Forum Internetowe</title>
 </head>
-
 <body>
-
 <!-- Non logged user navbar -->
 <nav sec:authorize="!isAuthenticated()" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -66,30 +59,14 @@
     </div>
 </nav>
 
-<div class="content container mt-4">
-    <h2>Wyniki wyszukiwania:</h2>
-    <div th:each="recentTopic : ${searchedTopics}">
-        <div class="card mb-3">
-            <a th:href="@{/topicView/{id}(id=${recentTopic.id})}" class="text-dark">
-            <div class="card-body">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="userTopic">Użytkownik:</label>
-                            <input type="text" id="userTopic" name="user" th:value="${recentTopic.user}" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="createdAtPostTopic">Czas zamieszczenia:</label>
-                            <input type="text" id="createdAtPostTopic" name="createdAtPost" th:value="${recentTopic.createdAt}" class="form-control" readonly>
-                        </div>
-                    </div>
-                <hr>
-                <div class="text">
-                    <label for="topicTopic">Temat:</label>
-                    <input type="text" id="topicTopic" name="user" th:value="${recentTopic.title}" class="form-control" readonly>
-                </div>
-            </div>
-            </a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="main-content container mt-4">
+                <h2>Error 404 - Strona nie znaleziona</h2>
+                <p>Przepraszamy, ale strona, której szukasz, nie została odnaleziona.</p>
+                <p>Prosimy sprawdzić adres URL lub wrócić na <a href="/">stronę główną</a>.</p>
+            </section>
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 package com.Forum.security;
 
-import com.Forum.User;
+import com.Forum.data.User;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

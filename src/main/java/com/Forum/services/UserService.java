@@ -1,5 +1,6 @@
-package com.Forum;
+package com.Forum.services;
 
+import com.Forum.data.User;
 import com.Forum.data.UserDTO;
 import com.Forum.data.UserRepository;
 import org.springframework.data.crossstore.ChangeSetPersister;

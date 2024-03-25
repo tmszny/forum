@@ -1,7 +1,9 @@
 package com.Forum.web;
 
-import com.Forum.Topic;
+import com.Forum.data.Topic;
+import com.Forum.data.TopicDTO;
 import com.Forum.data.TopicRepository;
+import com.Forum.services.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,41 +14,39 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
 
-    private TopicRepository topicRepo;
+    private TopicService topicService;
 
     @Autowired
-    public HomeController(TopicRepository topicRepo) {
-        this.topicRepo = topicRepo;
+    public HomeController(TopicService topicService) {
+        this.topicService = topicService;
     }
 
     @GetMapping
     public String showHome(Model model) {
         //recent topics
-        PageRequest pageTopic = PageRequest.of(0, 10, Sort.by("createdAt").descending());
-        Page<Topic> recentTopic = topicRepo.findAll(pageTopic);
-
+        Page<TopicDTO> recentTopic = topicService.showRecentTopics();
         //recent post
-        PageRequest pagePost = PageRequest.of(0, 10, Sort.by("lastUpdate").descending());
-        Page<Topic> recentPost = topicRepo.findAll(pagePost);
+        Page<TopicDTO> recentPost = topicService.showRecentDiscussion();
 
         model.addAttribute("recentTopics", recentTopic);
         model.addAttribute("recentPosts", recentPost);
-
         return "home";
     }
 
     @PostMapping
     public String showHomeAfterLogin(Model model) {
-        PageRequest page = PageRequest.of(0, 10, Sort.by("createdAt").descending());
-        Page<Topic> recentTopics = topicRepo.findAll(page);
-        model.addAttribute("recentTopics", recentTopics);
+        //recent topics
+        Page<TopicDTO> recentTopic = topicService.showRecentTopics();
+        //recent post
+        Page<TopicDTO> recentPost = topicService.showRecentDiscussion();
+
+        model.addAttribute("recentTopics", recentTopic);
+        model.addAttribute("recentPosts", recentPost);
         return "home";
     }
 

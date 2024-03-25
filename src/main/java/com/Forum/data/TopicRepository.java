@@ -1,7 +1,5 @@
 package com.Forum.data;
 
-import com.Forum.Post;
-import com.Forum.Topic;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;

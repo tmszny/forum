@@ -1,4 +1,4 @@
-package com.Forum;
+package com.Forum.data;
 
 import com.Forum.data.PostDTO;
 import jakarta.persistence.*;

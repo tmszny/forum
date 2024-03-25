@@ -1,6 +1,6 @@
 package com.Forum.security;
 
-import com.Forum.User;
+import com.Forum.data.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.Forum.security;
 
-import com.Forum.User;
+import com.Forum.data.User;
 import com.Forum.data.PrivilegesRepository;
 import com.Forum.data.RoleRepository;
 import com.Forum.data.UserRepository;

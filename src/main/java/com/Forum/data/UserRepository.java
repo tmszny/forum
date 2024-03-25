@@ -1,6 +1,5 @@
 package com.Forum.data;
 
-import com.Forum.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

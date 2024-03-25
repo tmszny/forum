@@ -1,17 +1,15 @@
-package com.Forum;
+package com.Forum.data;
 
-import com.Forum.User;
+import com.Forum.data.Post;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,5 +40,10 @@ public class Topic {
 
     public void closeTopic() {
         this.open = false;
+    }
+
+    public Topic(TopicDTO topicDTO) {
+        this.title = topicDTO.getTitle();
+        this.content = topicDTO.getContent();
     }
 }
